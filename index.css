@@ -1,1 +1,5 @@
-#map { height: 300px; width: 100vw;}
+body{
+    background-color: #f2f2f2;
+    overflow: hidden;
+}
+#map { height: 900px; width: 100%;}
