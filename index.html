@@ -11,14 +11,11 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
     integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
     crossorigin=""/>
- <!-- Make sure you put this AFTER Leaflet's CSS -->
-
-</head>
-<body>
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
     integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
     crossorigin=""></script>
-    <!-- A title centered -->
+</head>
+<body>
     <div class="text-center">
         <h1 class="text-slate-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight text-center dark:text-white">
             Tianguis CDMX
@@ -29,6 +26,6 @@
         <div id="map"></div>
     </div>
     
-    <script src="index.js"></script>
+    <script type="module" src="index.js"></script>
 </body>
 </html>
