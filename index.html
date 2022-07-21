@@ -23,7 +23,7 @@
         <p class="mt-6 text-lg text-slate-600 text-center max-w-3xl mx-auto dark:text-slate-400">
             En este mapa podrás encontrar y filtrar los diferentes tianguis que existe en la CDMX
         </p>
-        <div class="flex flex-row justify-center">
+        <div class="flex flex-row m-auto max-w-screen-md justify-around"> 
 
             <div class="flex-wrap flex-col justify-center">
                 <h2><b>Escoge los días</b></h2>
@@ -70,6 +70,29 @@
                     </label>
                 </div>
             </div>
+            <div class="flex-wrap flex-col justify-center ">
+                <h2><b><label for="townHall" class="block"></label>Selecciona una alcaldía</b></h2>
+                <select id="townHall" class="bg-white border-b-4 rounded-md border-blue-500 text-dark-300 text-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="none">NINGUNA</option>
+                    <option value="ÁLVARO OBREGÓN">ÁLVARO OBREGÓN</option>
+                    <option value="AZCAPOTZALCO">AZCAPOTZALCO</option>
+                    <option value="BENITO JUÁREZ">BENITO JUÁREZ</option>
+                    <option value="COYOACÁN">COYOACÁN</option>
+                    <option value="CUAJIMALPA">CUAJIMALPA</option>
+                    <option value="CUAUHTÉMOC">CUAUHTÉMOC</option>
+                    <option value="IZTACALCO">IZTACALCO</option>
+                    <option value="IZTAPALAPA">IZTAPALAPA</option>
+                    <option value="GUSTAVO A. MADERO">GUSTAVO A. MADERO</option>
+                    <option value="MAGDALENA CONTRERAS">MAGDALENA CONTRERAS</option>
+                    <option value="MIGUEL HIDALGO">MIGUEL HIDALGO</option>
+                    <option value="MILPA ALTA">MILPA ALTA</option>
+                    <option value="TLALPAN">TLALPAN</option>
+                    <option value="TLÁHUAC">TLÁHUAC</option>
+                    <option value="VENUSTIANO CARRANZA">VENUSTIANO CARRANZA</option>
+                    <option value="XOCHIMILCO">XOCHIMILCO</option>
+                </select>
+            </div>
+            
         </div>
         <div id="map"></div>
     </div>
