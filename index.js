@@ -51,3 +51,36 @@ function getPointsByDay(day) {
 }
 // This inits the current day points
 getPointsByDay(today);
+
+// Filters todays points by alcaldia if select is changed\
+function getPointsByTownHall(name, points) {
+    let filteredPoints = points.filter(point => point["Alcaldía"] === name);
+    filteredPoints.forEach(point => {
+        markers.add(L.marker([point["Latitude"], point["Longitude"]]).addTo(map));
+    })
+    return filteredPoints;
+}
+
+let townHall = document.getElementById('townHall');
+townHall.addEventListener('change', () => {
+    if (townHall.value === 'none') {
+        markers.forEach(marker => {
+            map.removeLayer(marker);
+        })
+        getPointsByDay(today);
+    }
+    let filteredPoints = getPointsByTownHall(townHall.value, points);
+    if (townHall.value === 'NINGUNA') {
+        filteredPoints.forEach(point => {
+            markers.forEach(marker => {
+                if (marker._latlng.lat === point["Latitude"] && marker._latlng.lng === point["Longitude"]) {
+                    map.removeLayer(marker);
+                }
+            })
+        })
+    } else {
+        getPointsByTownHall(alcaldia.value, points);
+        alcaldia.value = 'Todas';
+    }
+    alcaldia.value = 'Todas';
+}) 
