@@ -1,5 +1,6 @@
 import { points } from './tianguis.js';
 import { colors } from './src/constants.js';
+import { clearMarkers } from './functions.js';
 
 let markers = new Set();
 let ciudad_mexico = [19.3326, -99.1332];
@@ -43,10 +44,22 @@ function getPointsByDay(day) {
       })
     let checkbox = document.getElementById(day);
     checkbox.checked = !checkbox.checked;
-    let filteredPoints = points.filter(point => point["DÍA"] === day.toUpperCase())
-    filteredPoints.forEach(point => {
-        markers.add(L.marker([point["Latitude"], point["Longitude"]], {icon:icon}).addTo(map));
-    })
+      console.log('>>>>CHECKBOX ', checkbox.checked);
+      console.log('>>>>DAY ', day);
+    let filteredPoints;
+    if (day === "week"){
+        filteredPoints = points;
+        points.forEach(point => {
+            markers.add(L.marker([point["Latitude"], point["Longitude"]],).addTo(map));
+        })
+        return points;
+    }
+    else {
+        filteredPoints = points.filter(point => point["DÍA"] === day.toUpperCase())
+        filteredPoints.forEach(point => {
+            markers.add(L.marker([point["Latitude"], point["Longitude"]], {icon:icon}).addTo(map));
+        })
+    }
     return filteredPoints;
 }
 // This inits the current day points
@@ -63,24 +76,11 @@ function getPointsByTownHall(name, points) {
 
 let townHall = document.getElementById('townHall');
 townHall.addEventListener('change', () => {
-    if (townHall.value === 'none') {
-        markers.forEach(marker => {
-            map.removeLayer(marker);
-        })
-        getPointsByDay(today);
-    }
-    let filteredPoints = getPointsByTownHall(townHall.value, points);
     if (townHall.value === 'NINGUNA') {
-        filteredPoints.forEach(point => {
-            markers.forEach(marker => {
-                if (marker._latlng.lat === point["Latitude"] && marker._latlng.lng === point["Longitude"]) {
-                    map.removeLayer(marker);
-                }
-            })
-        })
-    } else {
-        getPointsByTownHall(alcaldia.value, points);
-        alcaldia.value = 'Todas';
+        clearMarkers(markers);
     }
-    alcaldia.value = 'Todas';
+    else {
+        let filteredPoints = getPointsByTownHall(townHall.value, points);
+        getPointsByTownHall(alcaldia.value, points);
+    }
 }) 

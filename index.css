@@ -1,17 +1,21 @@
-body{
+body {
     background-color: #ebe5d4;
     overflow: hidden;
 }
-#map { height: 900px; width: 100%;}
 
-.icon{
+#map {
+    height: 900px;
+    width: 100%;
+}
+
+.icon {
     display: block;
-    width: 25px ;
-    height: 25px ;
+    width: 25px;
+    height: 25px;
     left: -10px;
     top: -1rem;
-    border-radius: 15px 15px 0px 15px ;
-    position:relative ;
+    border-radius: 15px 15px 0px 15px;
+    position: relative;
     transform: rotate(45deg);
     /* Shadow */
     box-shadow: 2px 0px 1px rgb(104, 104, 104);
