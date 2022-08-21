@@ -66,6 +66,7 @@ function getPointsByDay(day) {
 
 // Filters todays points by alcaldia
 function getPointsByTownHall(name, points) {
+    if (name === "TODAS") return points;
     let filteredPoints = points.filter(point => point["Alcaldía"] === name);
     return filteredPoints;
 }
@@ -75,7 +76,7 @@ townHall.addEventListener('change', () => {
     // Obtiene los checkboxes de los dias que ya estan activos para refiltrar por alcaldia
     let checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
     clearMarkers(markers, map);
-    if (townHall.value !== 'NINGUNA') {
+    if (townHall.value !== 'NINGUNA' && townHall.value !== 'TODAS') {
         checkedBoxes.forEach(checkbox => {
             let filteredPointsByDay = getPointsByDay(checkbox.value);
             filteredPointsByDay.forEach(point => {
@@ -83,8 +84,13 @@ townHall.addEventListener('change', () => {
             })
         })
     }
-    else
-        point.forEach(point => {
-            markers.add(L.marker([point["Latitude"], point["Longitude"]]).addTo(map));
+    if (townHall.value === 'TODAS'){
+        checkedBoxes.forEach(checkbox => {
+            let filteredPointsByDay = getPointsByDay(checkbox.value);
+            filteredPointsByDay.forEach(point => {
+                markers.add(L.marker([point["Latitude"], point["Longitude"]]).addTo(map));
+            })
         })
+    }
+
 }) 
