@@ -94,3 +94,13 @@ townHall.addEventListener('change', () => {
     }
 
 }) 
+
+function init(){
+    let filteredPoints = getPointsByDay(today);
+    filteredPoints.forEach(point => {
+        markers.add(L.marker([point["Latitude"], point["Longitude"]]).addTo(map));
+    })
+    document.getElementById(today).checked = true;
+}
+
+init();
