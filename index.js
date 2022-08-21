@@ -1,6 +1,6 @@
-import { points } from './tianguis.js';
+import { points } from './src/data/tianguis.js';
 import { colors } from './src/constants.js';
-import { clearMarkers } from './functions.js';
+import { clearMarkers } from './src/functions.js';
 
 let markers = new Set();
 let ciudad_mexico = [19.3326, -99.1332];
