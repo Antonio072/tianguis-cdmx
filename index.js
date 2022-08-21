@@ -15,19 +15,21 @@ let checkboxes = document.querySelectorAll('input[type="checkbox"]');
 checkboxes.forEach(checkbox => {
     checkbox.addEventListener('change', () => {
         let filteredPoints = getPointsByDay(checkbox.value);
-        if (checkbox.checked) {
+        // Agrega los puntos que ya se filtraron por alcaldia
+        if (checkbox.checked) 
+            filteredPoints.forEach(point => {
+                markers.add(L.marker([point["Latitude"], point["Longitude"]]).addTo(map));
+            })
+        // Revisa que puntos ya estan marcados y los quita
+        else
             filteredPoints.forEach(point => {
                 markers.forEach(marker => {
-                    if (marker._latlng.lat === point["Latitude"] && marker._latlng.lng === point["Longitude"]) {
+                    if (marker.getLatLng().lat === point["Latitude"] && marker.getLatLng().lng === point["Longitude"]) {
                         map.removeLayer(marker);
+                        markers.delete(marker);
                     }
                 })
             })
-        } else {
-            getPointsByDay(checkbox.value);
-            checkbox.checked = !checkbox.checked;
-        }
-        checkbox.checked = !checkbox.checked;
     });
 });
 
@@ -43,44 +45,46 @@ function getPointsByDay(day) {
         html: `<span class="icon" style='background-color: ${color}' />`
       })
     let checkbox = document.getElementById(day);
-    checkbox.checked = !checkbox.checked;
-      console.log('>>>>CHECKBOX ', checkbox.checked);
-      console.log('>>>>DAY ', day);
+      
     let filteredPoints;
+    let townHall = document.getElementById('townHall');
+    let townHallPoints = getPointsByTownHall(townHall.value, points);
+    
     if (day === "week"){
-        filteredPoints = points;
-        points.forEach(point => {
-            markers.add(L.marker([point["Latitude"], point["Longitude"]],).addTo(map));
-        })
-        return points;
+        clearMarkers(markers, map);
+        filteredPoints = townHallPoints;
+        // Cambia todos los checkboxes de los dias 
+        document.querySelectorAll('input[type="checkbox"]').forEach(element => element.checked = checkbox.checked);
     }
     else {
-        filteredPoints = points.filter(point => point["DÍA"] === day.toUpperCase())
-        filteredPoints.forEach(point => {
-            markers.add(L.marker([point["Latitude"], point["Longitude"]], {icon:icon}).addTo(map));
-        })
+        // Quita el 'todos' si se selecciona un dia
+        document.getElementById('week').checked = false;
+        filteredPoints = townHallPoints.filter(point => point["DÍA"] === day.toUpperCase())
     }
     return filteredPoints;
 }
-// This inits the current day points
-getPointsByDay(today);
 
-// Filters todays points by alcaldia if select is changed\
+// Filters todays points by alcaldia
 function getPointsByTownHall(name, points) {
     let filteredPoints = points.filter(point => point["Alcaldía"] === name);
-    filteredPoints.forEach(point => {
-        markers.add(L.marker([point["Latitude"], point["Longitude"]]).addTo(map));
-    })
     return filteredPoints;
 }
 
 let townHall = document.getElementById('townHall');
 townHall.addEventListener('change', () => {
-    if (townHall.value === 'NINGUNA') {
-        clearMarkers(markers);
+    // Obtiene los checkboxes de los dias que ya estan activos para refiltrar por alcaldia
+    let checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    clearMarkers(markers, map);
+    if (townHall.value !== 'NINGUNA') {
+        checkedBoxes.forEach(checkbox => {
+            let filteredPointsByDay = getPointsByDay(checkbox.value);
+            filteredPointsByDay.forEach(point => {
+                markers.add(L.marker([point["Latitude"], point["Longitude"]]).addTo(map));
+            })
+        })
     }
-    else {
-        let filteredPoints = getPointsByTownHall(townHall.value, points);
-        getPointsByTownHall(alcaldia.value, points);
-    }
+    else
+        point.forEach(point => {
+            markers.add(L.marker([point["Latitude"], point["Longitude"]]).addTo(map));
+        })
 }) 
