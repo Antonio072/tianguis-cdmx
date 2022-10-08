@@ -7,3 +7,22 @@
   margin: 0 auto;
   overflow-x: hidden;
 }
+
+@layer components {
+
+    .accordion-container {
+        @apply rounded-t-2xl p-1 w-full;
+    }
+
+    .accordion-toggle {
+        @apply text-black capitalize  w-full flex  text-2xl border-b-black border-b justify-between relative;
+    }
+
+    .accordion-body {
+        @apply z-10   p-2 gap-y-1.5 w-full rounded-b-xl;
+    }
+
+    .accordion-item {
+        @apply text-black text-left text-xl capitalize  justify-around ;
+    }
+}
