@@ -1,9 +1,5 @@
-import dynamic from "next/dynamic";
-
-const Map = dynamic(() => import("../modules/Map/components/Map/Map"), { ssr: false });
-
 export default function Home() {
   return (
-    <Map />
+    <h1 className="text-5xl text-red-400 font-bold underline">Hello world!</h1>
   );
 }
