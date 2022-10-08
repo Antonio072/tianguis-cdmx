@@ -41,7 +41,7 @@ export const Carousel = ({ title, items }) : any => {
       {isMobile ? (
         <ul className={`flex ${styles.carousel}`} >
           {items.map((item: any) => (
-            <CarouselCard key={item.img} img={item.img} title={item.title} />
+            <CarouselCard key={item.image} image={item.image} title={item.title} description={item.description} rating={item.rating} />
           ))}
         </ul>
       )
@@ -51,7 +51,7 @@ export const Carousel = ({ title, items }) : any => {
             <button className={` bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l ${styles.left}`} onClick={previousItem}>Prev</button>
             <ul ref={carouselRef} className={`flex ${styles.carousel}`} >
               {items.map((item: any) => (
-                <CarouselCard key={item.img} img={item.img} title={item.title} />
+                <CarouselCard key={item.image} image={item.image} title={item.title} description={item.description} rating={item.rating} />
               ))}
             </ul>
             <button className={` bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l ${styles.right}`} onClick={nextItem} >Next</button>
