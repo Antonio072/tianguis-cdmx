@@ -1,7 +1,7 @@
 import styles from "./styles.module.css";
 import { useState, useEffect, useRef } from "react";
 
-import { CarrouselCard } from "@commons/CarrouselCard"
+import { CarouselCard } from "@commons/CarouselCard"
 
 export const Carousel = ({ title, items }) : any => {
   const [isMobile, setIsMobile] = useState(true) 
@@ -41,7 +41,7 @@ export const Carousel = ({ title, items }) : any => {
       {isMobile ? (
         <ul className={`flex ${styles.carousel}`} >
           {items.map((item: any) => (
-            <CarrouselCard key={item.img} img={item.img} title={item.title} />
+            <CarouselCard key={item.img} img={item.img} title={item.title} />
           ))}
         </ul>
       )
@@ -51,7 +51,7 @@ export const Carousel = ({ title, items }) : any => {
             <button className={` bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l ${styles.left}`} onClick={previousItem}>Prev</button>
             <ul ref={carouselRef} className={`flex ${styles.carousel}`} >
               {items.map((item: any) => (
-                <CarrouselCard key={item.img} img={item.img} title={item.title} />
+                <CarouselCard key={item.img} img={item.img} title={item.title} />
               ))}
             </ul>
             <button className={` bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l ${styles.right}`} onClick={nextItem} >Next</button>
