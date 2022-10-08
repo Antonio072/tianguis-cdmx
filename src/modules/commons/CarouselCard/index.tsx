@@ -10,7 +10,7 @@ export const CarouselCard = ({ image, title, description, rating }: any) => {
           <p className="text-gray-700">{description}</p>
         </div>
         <div>
-          <span>{"⭐".repeat(rating)}</span> 
+          <span>{"⭐".repeat(rating)}</span>
         </div>
       </article>
     </li>
