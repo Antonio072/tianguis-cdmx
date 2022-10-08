@@ -21,14 +21,14 @@ body {
     box-shadow: 2px 0px 1px rgb(104, 104, 104);
 }
 
-.icon::after{
-    content: "" ;
-    width: 12.5px ;
-    height: 12.5px ;
-    position: absolute ;
-    left: 26% ;
-    top: 26% ;
-    border-radius: 30px ;
+.icon::after {
+    content: "";
+    width: 12.5px;
+    height: 12.5px;
+    position: absolute;
+    left: 26%;
+    top: 26%;
+    border-radius: 30px;
 }
 
 @media screen and (max-width: 600px) {
