@@ -1,0 +1,37 @@
+.carousel{
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none; 
+  margin: 0 auto 0 auto;
+  height: fit-content;
+}
+
+.carousel::-webkit-scrollbar {
+  display: none; 
+}
+
+.img{
+  margin: 0 20px;
+  padding: 10px;
+  min-width: 300px;
+  min-height: 20vh;
+}
+
+@media (min-width: 768px) {
+  .container-desktop{
+    position: relative
+  }
+
+  .container-desktop button{
+    position: absolute;    
+    top: 20px;
+  }
+
+  .container-desktop button.left{
+    left: 0;
+  }
+
+  .container-desktop button.right{
+    right: 0;
+  }
+}
