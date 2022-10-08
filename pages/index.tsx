@@ -1,5 +1,9 @@
+import { TopBar } from "./components/TopBar/TopBar";
+
 export default function Home() {
   return (
-    <h1 className="text-5xl text-red-400 font-bold underline">Hello world!</h1>
+    <div className="w-full h-screen flex flex-col">
+      <TopBar />
+    </div>
   );
 }
