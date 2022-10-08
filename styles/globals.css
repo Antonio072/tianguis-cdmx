@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.container{
+  max-width: 450px;
+  margin: 0 auto;
+  overflow-x: hidden;
+}
