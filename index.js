@@ -18,7 +18,7 @@ checkboxes.forEach(checkbox => {
         // Agrega los puntos que ya se filtraron por alcaldia
         if (checkbox.checked) 
             filteredPoints.forEach(point => {
-                markers.add(L.marker([point["Latitude"], point["Longitude"]]).addTo(map));
+                markers.add(L.marker([point["Latitude"], point["Longitude"]]).addTo(map).bindPopup(point['Ubic']));
             })
         // Revisa que puntos ya estan marcados y los quita
         else
@@ -80,7 +80,7 @@ townHall.addEventListener('change', () => {
         checkedBoxes.forEach(checkbox => {
             let filteredPointsByDay = getPointsByDay(checkbox.value);
             filteredPointsByDay.forEach(point => {
-                markers.add(L.marker([point["Latitude"], point["Longitude"]]).addTo(map));
+                markers.add(L.marker([point["Latitude"], point["Longitude"]]).addTo(map).bindPopup(point['Ubic']));
             })
         })
     }
@@ -88,7 +88,7 @@ townHall.addEventListener('change', () => {
         checkedBoxes.forEach(checkbox => {
             let filteredPointsByDay = getPointsByDay(checkbox.value);
             filteredPointsByDay.forEach(point => {
-                markers.add(L.marker([point["Latitude"], point["Longitude"]]).addTo(map));
+                markers.add(L.marker([point["Latitude"], point["Longitude"]]).addTo(map).bindPopup(point['Ubic']));
             })
         })
     }
@@ -98,7 +98,7 @@ townHall.addEventListener('change', () => {
 function init(){
     let filteredPoints = getPointsByDay(today);
     filteredPoints.forEach(point => {
-        markers.add(L.marker([point["Latitude"], point["Longitude"]]).addTo(map));
+        markers.add(L.marker([point["Latitude"], point["Longitude"]]).addTo(map).bindPopup(point['Ubic']));
     })
     document.getElementById(today).checked = true;
 }
