@@ -17,13 +17,13 @@
 </head>
 <body>
     <main>
-        <h1 class="text-slate-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight dark:text-white">
-            <span class="text-red-400">Tianguis </span> CDMX
+        <h1 class="text-slate-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight dark:text-white mx-3">
+            <span class="font-mono text-red-400">Tianguis</span> CDMX
         </h1>
-        <div class="flex flex-row gap-3 px-5 min-w-screen-lg justify-around"> 
-            <div class="w-1/5 flex flex-col h-full">
-                <h2 class="text-2xl">Escoge los días</h2>
-                <ul class="items-center mb-3 p-3 text-2xl flex-col w-full text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+        <div class="md:flex md:flex-row sm:flex-col gap-3 px-5 justify-around mt-3"> 
+            <div class="md:w-1/6 sm:w-full flex flex-col h-full">
+                <h2 class="text-1xl font-bold">Selecciona los días</h2>
+                <ul class="items-center mb-3 p-3 text-1xl gap-3 flex-col w-full text-sm font-medium text-gray-900 bg-white rounded-lg border border-red-400 sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                     <li class="w-full">
                         <label class="flex items-center">
                                 <input type="checkbox" class="default-checkbox" id="week" name="week" value="week">
@@ -75,11 +75,10 @@
                 </ul>
                 
             </div>
-            <div class="w-full flex flex-col gap-4">
-
-                <div class="w-3/4 flex-wrap flex-col justify-center w-1/2">
-                    <h2><b><label for="townHall" class="block"></label>Selecciona una alcaldía</b></h2>
-                    <select id="townHall" class="bg-white border-b-4 rounded-md border-blue-500 text-dark-300 text-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <div class="w-full flex-col gap-4">
+                <div class="md:w-3/4 sm:w-full flex-wrap flex-col justify-center mb-2">
+                    <h2 class="text-1xl font-bold">Selecciona una alcaldía</h2>
+                    <select id="townHall" class="bg-white border-b-4 rounded-md border border-red-400 text-dark-300 text-md focus:ring-red-400 focus:border-red-400 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-400 dark:focus:border-red-400">
                         <option value="TODAS">TODAS</option>
                         <option value="NINGUNA">NINGUNA</option>
                         <option value="ÁLVARO OBREGÓN">ÁLVARO OBREGÓN</option>
