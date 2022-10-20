@@ -1,10 +1,18 @@
 import { points } from './src/data/tianguis.js';
 import { colors } from './src/constants.js';
-import { clearMarkers } from './src/functions.js';
+import { clearMarkers, description } from './src/functions.js';
 
 let markers = new Set();
 let ciudad_mexico = [19.3326, -99.1332];
 
+async function initLocation () {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            let user_location = [position.coords.latitude, position.coords.longitude];
+            map.setView(user_location, 13);
+        });
+    }
+}
 var map = L.map('map').setView(ciudad_mexico, 11);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -12,13 +20,15 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 let today = new Date().toLocaleDateString('es-ES', { weekday: 'long' });
 let checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
+await initLocation();
+
 checkboxes.forEach(checkbox => {
     checkbox.addEventListener('change', () => {
         let filteredPoints = getPointsByDay(checkbox.value);
         // Agrega los puntos que ya se filtraron por alcaldia
         if (checkbox.checked) 
             filteredPoints.forEach(point => {
-                markers.add(L.marker([point["Latitude"], point["Longitude"]]).addTo(map).bindPopup(point['Ubic']));
+                markers.add(L.marker([point["Latitude"], point["Longitude"]]).addTo(map).bindPopup(description(point)));
             })
         // Revisa que puntos ya estan marcados y los quita
         else
@@ -80,7 +90,7 @@ townHall.addEventListener('change', () => {
         checkedBoxes.forEach(checkbox => {
             let filteredPointsByDay = getPointsByDay(checkbox.value);
             filteredPointsByDay.forEach(point => {
-                markers.add(L.marker([point["Latitude"], point["Longitude"]]).addTo(map).bindPopup(point['Ubic']));
+                markers.add(L.marker([point["Latitude"], point["Longitude"]]).addTo(map).bindPopup(description(point)));
             })
         })
     }
@@ -88,7 +98,7 @@ townHall.addEventListener('change', () => {
         checkedBoxes.forEach(checkbox => {
             let filteredPointsByDay = getPointsByDay(checkbox.value);
             filteredPointsByDay.forEach(point => {
-                markers.add(L.marker([point["Latitude"], point["Longitude"]]).addTo(map).bindPopup(point['Ubic']));
+                markers.add(L.marker([point["Latitude"], point["Longitude"]]).addTo(map).bindPopup(description(point)));
             })
         })
     }
@@ -98,7 +108,7 @@ townHall.addEventListener('change', () => {
 function init(){
     let filteredPoints = getPointsByDay(today);
     filteredPoints.forEach(point => {
-        markers.add(L.marker([point["Latitude"], point["Longitude"]]).addTo(map).bindPopup(point['Ubic']));
+        markers.add(L.marker([point["Latitude"], point["Longitude"]]).addTo(map).bindPopup(description(point)));
     })
     document.getElementById(today).checked = true;
 }
