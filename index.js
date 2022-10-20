@@ -13,10 +13,14 @@ async function initLocation () {
         });
     }
 }
-var map = L.map('map').setView(ciudad_mexico, 11);
+var map = L.map('map',{zoomControl: false}).setView(ciudad_mexico, 11);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
+L.control.zoom({
+    position: 'bottomright'
+}).addTo(map);
+
 let today = new Date().toLocaleDateString('es-ES', { weekday: 'long' });
 let checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
