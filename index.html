@@ -20,89 +20,70 @@
         <h1 class="text-slate-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight dark:text-white mx-3">
             <span class="font-mono text-red-400">Tianguis</span> CDMX
         </h1>
-        <div class="md:flex md:flex-row sm:flex-col gap-3 justify-around mt-3"> 
-            <div class="md:w-1/6 sm:w-full flex flex-col h-full px-5">
-                <h2 class="text-1xl font-bold">Selecciona los días</h2>
-                <ul class="items-center mb-3 p-3 text-1xl gap-3 flex-col w-full text-sm font-medium text-gray-900 bg-white rounded-lg border border-red-400 sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                    <li class="w-full">
-                        <label class="flex items-center">
-                                <input type="checkbox" class="default-checkbox" id="week" name="week" value="week">
-                                <span class="ml-2">Todos</span>
-                            </label>
+        <div class="absolute z-10 mt-2 flex ">
+            <div class=" mx-1 p-2 text-gray-900 bg-white rounded-lg border border-red-400 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                <h3 class="font-bold">Selecciona los días</h3>
+                <ul class="">
+                    <li>
+                        <input type="checkbox" class="default-checkbox" id="week" name="week" value="week">
+                        <label class="ml-2" for="week">Todos</label>
                     </li>
-                    <li class="w-full">
-                            <label class="flex items-center">
-                                <input type="checkbox" class="default-checkbox" id="lunes" name="lunes" value="lunes">
-                                <span class="ml-2">Lunes</span>
-                            </label>       
+                    <li>
+                        <input type="checkbox" class="default-checkbox" id="lunes" name="lunes" value="lunes">
+                        <label class="ml-2" for="lunes">Lunes</label>
                     </li>
-                    <li class="w-full">
-                            <label class="flex items-center">
-                                <input type="checkbox" class="default-checkbox" id="martes" name="martes" value="martes"1>
-                                <span class="ml-2">Martes</span>
-                            </label>
+                    <li>
+                        <input type="checkbox" class="default-checkbox" id="martes" name="martes" value="martes"1>
+                        <label class="ml-2" for="martes">Martes</label>
                     </li>
-                    <li class="w-full">
-                            <label class="flex items-center">
-                                <input type="checkbox" class="default-checkbox" id="miércoles" name="miércoles" value="miércoles">
-                                <span class="ml-2">Miércoles</span>
-                            </label>
+                    <li>
+                        <input type="checkbox" class="default-checkbox" id="miércoles" name="miércoles" value="miércoles">
+                        <label class="ml-2" for="miércoles">Miércoles</label>
                     </li>
-                    <li class="w-full">
-                            <label class="flex items-center">
-                                <input type="checkbox" class="default-checkbox" id="jueves" name="jueves" value="jueves">
-                                <span class="ml-2">Jueves</span>
-                            </label>
+                    <li>
+                        <input type="checkbox" class="default-checkbox" id="jueves" name="jueves" value="jueves">
+                        <label class="ml-2" for="jueves">Jueves</label>
                     </li>
-                    <li class="w-full">
-                            <label class="flex items-center">
-                                <input type="checkbox" class="default-checkbox" id="viernes" name="viernes" value="viernes">
-                                <span class="ml-2">Viernes</span>
-                            </label>
+                    <li>
+                        <input type="checkbox" class="default-checkbox" id="viernes" name="viernes" value="viernes">
+                        <label class="ml-2" for="viernes">Viernes</label>
                     </li>
-                    <li class="w-full">
-                            <label class="flex items-center">
-                                <input type="checkbox" class="default-checkbox" id="sábado" name="sábado" value="sábado">
-                                <span class="ml-2">Sábado</span>
-                            </label>
+                    <li>
+                        <input type="checkbox" class="default-checkbox" id="sábado" name="sábado" value="sábado">
+                        <label class="ml-2" for="sábado">Sábado</label>
                     </li>
-                    <li class="w-full">
-                            <label class="flex items-center">
-                                <input type="checkbox" class="default-checkbox" id="domingo" name="domingo" value="domingo">
-                                <span class="ml-2">Domingo</span>
-                            </label>
+                    <li>
+                        <input type="checkbox" class="default-checkbox" id="domingo" name="domingo" value="domingo">
+                        <label class="ml-2" for="domingo">Domingo</label>
                     </li>
-                </ul>
-                
+                </ul> 
             </div>
-            <div class="w-full flex-col gap-4">
-                <div class="md:w-3/4 sm:w-full flex-wrap flex-col justify-center mb-2 px-5">
-                    <h2 class="text-1xl font-bold">Selecciona una alcaldía</h2>
-                    <select id="townHall" class="bg-white border-b-4 rounded-md border border-red-400 text-dark-300 text-md focus:ring-red-400 focus:border-red-400 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-400 dark:focus:border-red-400">
-                        <option value="TODAS">TODAS</option>
-                        <option value="NINGUNA">NINGUNA</option>
-                        <option value="ÁLVARO OBREGÓN">ÁLVARO OBREGÓN</option>
-                        <option value="AZCAPOTZALCO">AZCAPOTZALCO</option>
-                        <option value="BENITO JUÁREZ">BENITO JUÁREZ</option>
-                        <option value="COYOACÁN">COYOACÁN</option>
-                        <option value="CUAJIMALPA">CUAJIMALPA</option>
-                        <option value="CUAUHTÉMOC">CUAUHTÉMOC</option>
-                        <option value="IZTACALCO">IZTACALCO</option>
-                        <option value="IZTAPALAPA">IZTAPALAPA</option>
-                        <option value="GUSTAVO A. MADERO">GUSTAVO A. MADERO</option>
-                        <option value="MAGDALENA CONTRERAS">MAGDALENA CONTRERAS</option>
-                        <option value="MIGUEL HIDALGO">MIGUEL HIDALGO</option>
-                        <option value="MILPA ALTA">MILPA ALTA</option>
-                        <option value="TLALPAN">TLALPAN</option>
-                        <option value="TLÁHUAC">TLÁHUAC</option>
-                        <option value="VENUSTIANO CARRANZA">VENUSTIANO CARRANZA</option>
-                        <option value="XOCHIMILCO">XOCHIMILCO</option>
-                    </select>
-                </div>
-                <div id="map"></div>
-             </div>
+            <div class="w-1/2 mx-1 p-2 bg-white h-full rounded-lg border border-red-400">
+                <h3 class="font-bold text-center">Selecciona una alcaldía</h3>
+                <select id="townHall" class="bg-white border-b-4 rounded-md border border-red-400 text-dark-300 text-md focus:ring-red-400 focus:border-red-400 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-400 dark:focus:border-red-400">
+                    <option value="TODAS">TODAS</option>
+                    <option value="NINGUNA">NINGUNA</option>
+                    <option value="ÁLVARO OBREGÓN">ÁLVARO OBREGÓN</option>
+                    <option value="AZCAPOTZALCO">AZCAPOTZALCO</option>
+                    <option value="BENITO JUÁREZ">BENITO JUÁREZ</option>
+                    <option value="COYOACÁN">COYOACÁN</option>
+                    <option value="CUAJIMALPA">CUAJIMALPA</option>
+                    <option value="CUAUHTÉMOC">CUAUHTÉMOC</option>
+                    <option value="IZTACALCO">IZTACALCO</option>
+                    <option value="IZTAPALAPA">IZTAPALAPA</option>
+                    <option value="GUSTAVO A. MADERO">GUSTAVO A. MADERO</option>
+                    <option value="MAGDALENA CONTRERAS">MAGDALENA CONTRERAS</option>
+                    <option value="MIGUEL HIDALGO">MIGUEL HIDALGO</option>
+                    <option value="MILPA ALTA">MILPA ALTA</option>
+                    <option value="TLALPAN">TLALPAN</option>
+                    <option value="TLÁHUAC">TLÁHUAC</option>
+                    <option value="VENUSTIANO CARRANZA">VENUSTIANO CARRANZA</option>
+                    <option value="XOCHIMILCO">XOCHIMILCO</option>
+                </select>
+            </div>
         </div>
-        
+
+        <div id="map"></div>
     </main>
     
     <script type="module" src="index.js"></script>
