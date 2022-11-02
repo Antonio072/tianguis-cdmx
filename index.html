@@ -22,7 +22,11 @@
     crossorigin=""></script>
 </head>
 <body>
-    <main>
+    <div id="loader" >
+        <div id="spinner" class="spinner"></div>
+        <p>Cargando información</p>
+    </div>
+    <main id="main" class="hidden">
         <h1 class="text-slate-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight dark:text-white mx-3">
             <span class="font-mono text-red-400">Tianguis</span> CDMX
         </h1>
@@ -91,7 +95,7 @@
 
         <div id="map"></div>
     </main>
-    
+
     <script type="module" src="index.js"></script>
 </body>
 </html>

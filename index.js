@@ -1,18 +1,11 @@
 import { points } from './src/data/tianguis.js';
 import { colors } from './src/constants.js';
 import { clearMarkers, description } from './src/functions.js';
+import { initLocation } from './src/getLocation.js';
 
 let markers = new Set();
 let ciudad_mexico = [19.3326, -99.1332];
 
-async function initLocation () {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-            let user_location = [position.coords.latitude, position.coords.longitude];
-            map.setView(user_location, 13);
-        });
-    }
-}
 var map = L.map('map',{zoomControl: false}).setView(ciudad_mexico, 11);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -24,7 +17,7 @@ L.control.zoom({
 let today = new Date().toLocaleDateString('es-ES', { weekday: 'long' });
 let checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
-await initLocation();
+
 
 checkboxes.forEach(checkbox => {
     checkbox.addEventListener('change', () => {
@@ -109,7 +102,7 @@ townHall.addEventListener('change', () => {
 
 }) 
 
-function init(){
+async function init(){
     let filteredPoints = getPointsByDay(today);
     filteredPoints.forEach(point => {
         markers.add(L.marker([point["Latitude"], point["Longitude"]]).addTo(map).bindPopup(description(point)));
@@ -117,4 +110,23 @@ function init(){
     document.getElementById(today).checked = true;
 }
 
-init();
+window.onload = async () => {
+    let loader = document.getElementById('loader');
+    let main = document.getElementById('main');
+    main.style.display = 'none';
+    
+    let location = await initLocation();
+    if (location) {
+        map.setView(location, 13);
+        loader.style.display = 'none';
+        main.style.display = 'block';     
+    }
+    else {
+        loader.style.display = 'none';
+        main.style.display = 'block';
+    }
+    await init();
+    // NOTE: Leaflet map doesn't renders properly so window resize is needed
+    // TODO: Find a better solution
+    window.dispatchEvent(new Event('resize'));
+}
