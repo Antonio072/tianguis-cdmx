@@ -117,7 +117,7 @@ window.onload = async () => {
     
     let location = await initLocation();
     if (location) {
-        map.setView(location, 13);
+        map.setView(location, 16);
         loader.style.display = 'none';
         main.style.display = 'block';     
     }
