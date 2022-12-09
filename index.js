@@ -1,6 +1,6 @@
 import { points } from './src/data/tianguis.js';
 import { colors } from './src/constants.js';
-import { clearMarkers, description } from './src/functions.js';
+import { clearMarkers, description, daysInitialLetters } from './src/functions.js';
 import { initLocation } from './src/getLocation.js';
 
 let markers = new Set();
@@ -17,10 +17,27 @@ L.control.zoom({
 let today = new Date().toLocaleDateString('es-ES', { weekday: 'long' });
 let checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
+document.getElementById('dayDropdown').addEventListener('click', () => {
+    document.getElementById('dayDropdownContent').classList.toggle('hidden');
+});
 
 
 checkboxes.forEach(checkbox => {
     checkbox.addEventListener('change', () => {
+        let daysPlaceholder = document.getElementById('daysInitials');
+        if (checkbox.value === 'week') {
+            if (checkbox.checked) {
+                ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'].map(day => {    
+                    daysPlaceholder.innerText = daysInitialLetters(day, daysPlaceholder.innerText)
+                })
+            }
+            else daysPlaceholder.innerText = '';
+        }
+        else {
+            let day = checkbox.value.slice(0,1).toUpperCase()
+            let parsedDay = day + checkbox.value.slice(1,3);
+            daysPlaceholder.innerText = daysInitialLetters(parsedDay, daysPlaceholder.innerText)
+        }
         let filteredPoints = getPointsByDay(checkbox.value);
         // Agrega los puntos que ya se filtraron por alcaldia
         if (checkbox.checked) 
