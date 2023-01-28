@@ -124,7 +124,10 @@ async function init(){
     filteredPoints.forEach(point => {
         markers.add(L.marker([point["Latitude"], point["Longitude"]]).addTo(map).bindPopup(description(point)));
     })
-    document.getElementById(today).checked = true;
+    let todayCheckbox = document.getElementById(today)
+    todayCheckbox.checked = true;
+    let event = new Event('change');
+    todayCheckbox.dispatchEvent(event);
 }
 
 window.onload = async () => {
