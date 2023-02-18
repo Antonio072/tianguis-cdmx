@@ -135,16 +135,16 @@ window.onload = async () => {
     let main = document.getElementById('main');
     main.style.display = 'none';
     
-    let location = await initLocation();
-    if (location) {
-        map.setView(location, 16);
-        loader.style.display = 'none';
-        main.style.display = 'block';     
-    }
-    else {
+    // let location = await initLocation();
+    // if (location) {
+    //     map.setView(location, 16);
+    //     loader.style.display = 'none';
+    //     main.style.display = 'block';     
+    // }
+    // else {
         loader.style.display = 'none';
         main.style.display = 'block';
-    }
+    // }
     await init();
     // NOTE: Leaflet map doesn't renders properly so window resize is needed
     // TODO: Find a better solution
