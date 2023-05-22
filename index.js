@@ -1,7 +1,6 @@
 import { points } from './src/data/tianguis.js';
 import { colors } from './src/constants.js';
-import { clearMarkers, description, daysInitialLetters } from './src/functions.js';
-import { initLocation } from './src/getLocation.js';
+import { clearMarkers, description, daysInitialLetters, setLocationOnMap } from './src/functions.js';
 
 let markers = new Set();
 let ciudad_mexico = [19.3326, -99.1332];
@@ -120,6 +119,9 @@ townHall.addEventListener('change', () => {
 }) 
 
 async function init(){
+    let locationButton = document.getElementById('locationButton');
+    locationButton.addEventListener('click',async () =>await setLocationOnMap(map))
+
     let filteredPoints = getPointsByDay(today);
     filteredPoints.forEach(point => {
         markers.add(L.marker([point["Latitude"], point["Longitude"]]).addTo(map).bindPopup(description(point)));

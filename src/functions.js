@@ -1,3 +1,5 @@
+import { initLocation } from './getLocation.js';
+
 const clearMarkers = (markers = Set(), map) => {
     markers.forEach(marker => {
         map.removeLayer(marker);
@@ -67,4 +69,11 @@ function daysInitialLetters (day, initialsString) {
   return sortedString;
   }
 
-export { clearMarkers, description, daysInitialLetters };
+async function setLocationOnMap(map){
+  let location = await initLocation();
+  if (location) {
+    map.setView(location, 16);
+  }
+}
+
+export { clearMarkers, description, daysInitialLetters, setLocationOnMap };
