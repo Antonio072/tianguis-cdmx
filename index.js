@@ -1,7 +1,32 @@
-import { points } from './src/data/tianguis.js';
-import { colors } from './src/constants.js';
 import { clearMarkers, description, daysInitialLetters, setLocationOnMap } from './src/functions.js';
+import { getDataFromAPI } from './mongo.js';
 
+let selectedDays = [];
+let selectedTownHall = 'NINGUNO';
+/*
+    Queries:
+        1.- Initial query (today, 'Ninguno')
+        2.- Day change ([selectedDays], 'Ninguno')
+        3.- All data ('TODOS', 'TODOS')
+        4.- Lunes tlalpan (['Lunes'], 'Tlalpan')
+        5.- Lunes martes tlalpan (['Lunes', 'Martes'], 'Tlalpan')
+
+
+    Instead of using data that is already in the client, we should use the API
+    Remove filteredPointsByDay and filteredPointsByTownHall
+    It should have 2 global variables: selectedDays and selectedTownHall
+    selectedDays = ['Lunes', 'Martes']
+    selectedTownHall = 'Tlalpan'
+    When the user selects a day, it should be added to the selectedDays array
+    When the user selects a town hall, it should be added to the selectedTownHall array
+    When the user unselects a day, it should be removed from the selectedDays array
+    When the user switches to 'TODOS', it should remove all the selectedDays (this is not necessary due to backend override)
+    When the user switches to 'TODAS' it changes the String to 'TODOS'
+
+    Steps:
+        1.- Push items when day is changed
+        2.- Change string when townhall is changed
+*/
 let markers = new Set();
 let ciudad_mexico = [19.3326, -99.1332];
 
@@ -22,132 +47,60 @@ document.getElementById('dayDropdown').addEventListener('click', () => {
 
 
 checkboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', () => {
+    checkbox.addEventListener('change', async () => {
         let daysPlaceholder = document.getElementById('daysInitials');
         if (checkbox.value === 'week') {
             if (checkbox.checked) {
                 ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'].map(day => {    
                     daysPlaceholder.innerText = daysInitialLetters(day, daysPlaceholder.innerText)
                 })
+                selectedDays.push('TODOS')
             }
-            else daysPlaceholder.innerText = '';
+            else {
+                selectedDays = []
+                daysPlaceholder.innerText = '';
+                checkboxes.forEach(checkbox => checkbox.checked = false)
+            }
         }
         else {
             let day = checkbox.value.slice(0,1).toUpperCase()
             let parsedDay = day + checkbox.value.slice(1,3);
+            if (checkbox.checked) {
+                selectedDays.push(checkbox.value)
+            }
+            else {
+                selectedDays = selectedDays.filter(day => day !== checkbox.value)
+            }
             daysPlaceholder.innerText = daysInitialLetters(parsedDay, daysPlaceholder.innerText)
         }
-        let filteredPoints = getPointsByDay(checkbox.value);
-        // Agrega los puntos que ya se filtraron por alcaldia
-        if (checkbox.checked) 
-            filteredPoints.forEach(point => {
-                markers.add(L.marker([point["Latitude"], point["Longitude"]]).addTo(map).bindPopup(description(point)));
-            })
-        // Revisa que puntos ya estan marcados y los quita
-        else
-            filteredPoints.forEach(point => {
-                markers.forEach(marker => {
-                    if (marker.getLatLng().lat === point["Latitude"] && marker.getLatLng().lng === point["Longitude"]) {
-                        map.removeLayer(marker);
-                        markers.delete(marker);
-                    }
-                })
-            })
+        clearMarkers(markers, map);
+        let points = await getDataFromAPI(selectedDays, selectedTownHall)
+        points.data.forEach(point => {
+            markers.add(L.marker([point["latitud"], point["longitud"]]).addTo(map).bindPopup(description(point)));
+        })
     });
 });
 
-function getPointsByDay(day) {
-    // Replace accents with normal letters
-    let day_normal = day.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
-    let color = colors[day_normal];
-    const icon = L.divIcon({
-        className: "my-custom-pin",
-        iconAnchor: [0, 24],
-        labelAnchor: [0, 0],
-        popupAnchor: [0, 0],
-        html: `<span class="icon" style='background-color: ${color}' />`
-      })
-    let checkbox = document.getElementById(day);
-      
-    let filteredPoints;
-    let townHall = document.getElementById('townHall');
-    let townHallPoints = getPointsByTownHall(townHall.value, points);
-    
-    if (day === "week"){
-        clearMarkers(markers, map);
-        filteredPoints = townHallPoints;
-        // Cambia todos los checkboxes de los dias 
-        document.querySelectorAll('input[type="checkbox"]').forEach(element => element.checked = checkbox.checked);
-    }
-    else {
-        // Quita el 'todos' si se selecciona un dia
-        document.getElementById('week').checked = false;
-        filteredPoints = townHallPoints.filter(point => point["DÍA"] === day.toUpperCase())
-    }
-    return filteredPoints;
-}
-
-// Filters todays points by alcaldia
-function getPointsByTownHall(name, points) {
-    if (name === "TODAS") return points;
-    let filteredPoints = points.filter(point => point["Alcaldía"] === name);
-    return filteredPoints;
-}
-
 let townHall = document.getElementById('townHall');
-townHall.addEventListener('change', () => {
-    // Obtiene los checkboxes de los dias que ya estan activos para refiltrar por alcaldia
-    let checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
+townHall.addEventListener('change', async () => {
     clearMarkers(markers, map);
-    if (townHall.value !== 'NINGUNA' && townHall.value !== 'TODAS') {
-        checkedBoxes.forEach(checkbox => {
-            let filteredPointsByDay = getPointsByDay(checkbox.value);
-            filteredPointsByDay.forEach(point => {
-                markers.add(L.marker([point["Latitude"], point["Longitude"]]).addTo(map).bindPopup(description(point)));
-            })
-        })
-    }
-    if (townHall.value === 'TODAS'){
-        checkedBoxes.forEach(checkbox => {
-            var svg = `<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-
-            <!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
-            <svg fill="#000000" width="15px" height="15px" viewBox="-3.2 -3.2 38.40 38.40" xmlns="http://www.w3.org/2000/svg">
-            
-            <g id="SVGRepo_bgCarrier" stroke-width="0">
-            
-            <rect x="-3.2" y="-3.2" width="38.40" height="38.40" rx="19.2" fill="#ffffff" strokewidth="0"/>
-            
-            </g>
-            
-            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
-            
-            <g id="SVGRepo_iconCarrier"> <circle cx="16" cy="16" r="16"/> </g>
-            
-            </svg>`;
-            var iconUrl = 'data:image/svg+xml;base64,' + btoa(svg);
-            
-            var icon = L.icon({
-                iconUrl: iconUrl,
-            });
-            let filteredPointsByDay = getPointsByDay(checkbox.value);
-            console.log(filteredPointsByDay.length)
-            filteredPointsByDay.forEach(point => {
-                markers.add(L.marker([point["Latitude"], point["Longitude"]], {icon: icon}).addTo(map).bindPopup(description(point)));
-            })
-        })
-    }
-
+    selectedTownHall = townHall.value;
+    let points = await getDataFromAPI(selectedDays, selectedTownHall)
+    points.data.forEach(point =>
+        markers
+        .add(
+            L.marker([point["latitud"], point["longitud"]]).
+                addTo(map).
+                    bindPopup(description(point)
+            )
+        )
+    )
 }) 
 
 async function init(){
     let locationButton = document.getElementById('locationButton');
     locationButton.addEventListener('click',async () =>await setLocationOnMap(map))
 
-    let filteredPoints = getPointsByDay(today);
-    filteredPoints.forEach(point => {
-        markers.add(L.marker([point["Latitude"], point["Longitude"]]).addTo(map).bindPopup(description(point)));
-    })
     let todayCheckbox = document.getElementById(today)
     todayCheckbox.checked = true;
     let event = new Event('change');
