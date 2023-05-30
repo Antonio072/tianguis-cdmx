@@ -8,12 +8,12 @@ const clearMarkers = (markers = Set(), map) => {
 };
 
 const description = (point) => {
-    let day = point['DÍA'].toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
-    return `<div><b>Ubicación:</b> ${point['Ubic']}</div>
-            <div><b>Horario:</b> ${point['Horario']}</div>
+    let day = point['dia'].toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
+    return `<div><b>Ubicación:</b> ${point['ubicacion']}</div>
+            <div><b>Horario:</b> ${point['horario']}</div>
             <div><b>Días:</b> ${day}</div>
-            <div><b>Colonia:</b> ${point['Nombre Col']}</div>
-            <div><a target="_blank"href="https://maps.google.com/?q=${point['Latitude']},${point['Longitude']}">¿Cómo llegar?</a><div>`;
+            <div><b>Colonia:</b> ${point['nombre_col']}</div>
+            <div><a target="_blank"href="https://maps.google.com/?q=${point['latitud']},${point['longitud']}">¿Cómo llegar?</a><div>`;
 };
 
 let days = {
