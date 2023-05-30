@@ -1,5 +1,6 @@
 import { clearMarkers, description, daysInitialLetters, setLocationOnMap } from './src/functions.js';
 import { getDataFromAPI } from './mongo.js';
+import { icon } from './src/constants.js';
 
 let selectedDays = [];
 let selectedTownHall = 'NINGUNO';
@@ -76,7 +77,7 @@ checkboxes.forEach(checkbox => {
         clearMarkers(markers, map);
         let points = await getDataFromAPI(selectedDays, selectedTownHall)
         points.data.forEach(point => {
-            markers.add(L.marker([point["latitud"], point["longitud"]]).addTo(map).bindPopup(description(point)));
+            markers.add(L.marker([point["latitud"], point["longitud"]], {icon:icon}).addTo(map).bindPopup(description(point)));
         })
     });
 });
@@ -89,7 +90,7 @@ townHall.addEventListener('change', async () => {
     points.data.forEach(point =>
         markers
         .add(
-            L.marker([point["latitud"], point["longitud"]]).
+            L.marker([point["latitud"], point["longitud"]], {icon:icon}).
                 addTo(map).
                     bindPopup(description(point)
             )
