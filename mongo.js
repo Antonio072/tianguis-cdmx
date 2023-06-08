@@ -1,4 +1,4 @@
-const API_URL = "https://gf888e5f6e.execute-api.us-east-1.amazonaws.com/tianguis"
+const API_URL = "https://api.tianguisdemexico.com/prod/v1/tianguis"
 const DAY = "lunes"
 const TOWNHALL = "tlalpan"
 
