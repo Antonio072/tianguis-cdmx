@@ -1,5 +1,5 @@
 import { clearMarkers, description, daysInitialLetters, setLocationOnMap } from './src/functions.js';
-import { getDataFromAPI } from './mongo.js';
+import { getDataFromAPI, getNearestTianguis } from './mongo.js';
 import { icon } from './src/constants.js';
 
 let selectedDays = [];
@@ -100,7 +100,15 @@ townHall.addEventListener('change', async () => {
 
 async function init(){
     let locationButton = document.getElementById('locationButton');
-    locationButton.addEventListener('click',async () =>await setLocationOnMap(map))
+    locationButton.addEventListener('click',async () =>{
+        let {0: latitud, 1: longitud } = await setLocationOnMap(map)
+        
+        let points = await getNearestTianguis(latitud, longitud)
+        points.data.forEach(point => {
+            markers.add(L.marker([point["location"]["coordinates"][1], point["location"]["coordinates"][0]], {icon:icon}).addTo(map).bindPopup(description(point)));
+        })
+    
+    })
 
     let todayCheckbox = document.getElementById(today)
     todayCheckbox.checked = true;

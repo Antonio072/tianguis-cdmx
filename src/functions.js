@@ -76,6 +76,7 @@ async function setLocationOnMap(map){
   if (location) {
     map.setView(location, 16);
   }
+  return location
 }
 
 export { clearMarkers, description, daysInitialLetters, setLocationOnMap };
