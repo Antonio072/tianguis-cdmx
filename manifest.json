@@ -1,25 +1,29 @@
 {
     "short_name": "Tianguis CDMX",
     "name": "Tianguis CDMX",
+    "description": "Encuentra los tianguis más cercanos a tu ubicación.",
     "icons": [
       {
-        "src": "/images/Preview_icon.png",
+        "src": "/src/assets/images/Preview_icon_256.png",
         "type": "image/png",
-        "sizes": "512x512"
+        "sizes": "256x256"
       },
       {
-        "src": "/images/Preview_icon.png",
+        "src": "/src/assets/images/Preview_icon_176.png",
         "type": "image/png",
-        "sizes": "192x192"
+        "sizes": "176x176"
       },
       {
-        "src": "/images/Preview_icon.png",
+        "src": "/src/assets/images/Preview_icon_96.png",
         "type": "image/png",
-        "sizes": "512x512"
+        "sizes": "96x96"
       }
     ],
+    "id": "Tianguis_cdmx",
     "start_url": "/?source=pwa",
     "background_color": "#3367D6",
     "display": "standalone",
+    "theme_color": "#ffffff",
+    "orientation": "portrait",
     "scope": "/"
   }
