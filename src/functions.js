@@ -13,7 +13,7 @@ const description = (point) => {
             <div><b>Horario:</b> ${point['horario']}</div>
             <div><b>Días:</b> ${day}</div>
             <div><b>Colonia:</b> ${point['nombre_col']}</div>
-            <div><a target="_blank"href="https://maps.google.com/?q=${point['latitud']},${point['longitud']}">¿Cómo llegar?</a><div>`;
+            <div><a target="_blank"href="https://maps.google.com/?q=${point["location"]['coordinates'][1]},${point["location"]['coordinates'][0]}">¿Cómo llegar?</a><div>`;
 };
 
 let days = {
