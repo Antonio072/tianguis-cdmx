@@ -77,7 +77,8 @@ checkboxes.forEach(checkbox => {
         clearMarkers(markers, map);
         let points = await getDataFromAPI(selectedDays, selectedTownHall)
         points.data.forEach(point => {
-            markers.add(L.marker([point["latitud"], point["longitud"]]).addTo(map).bindPopup(description(point)));
+            let coloredIcon = paintIconByDay(getColorFromDay(point["dia"]));
+            markers.add(L.marker([point["latitud"], point["longitud"]], {icon:coloredIcon}).addTo(map).bindPopup(description(point)));
         })
     });
 });
@@ -87,14 +88,16 @@ townHall.addEventListener('change', async () => {
     clearMarkers(markers, map);
     selectedTownHall = townHall.value;
     let points = await getDataFromAPI(selectedDays, selectedTownHall)
-    points.data.forEach(point =>
+    points.data.forEach(point =>{
+        let coloredIcon = paintIconByDay(getColorFromDay(point["dia"]));
+
         markers
         .add(
-            L.marker([point["latitud"], point["longitud"]]).
+            L.marker([point["latitud"], point["longitud"]], {icon:coloredIcon}).
                 addTo(map).
                     bindPopup(description(point)
             )
-        )
+        )}
     )
 }) 
 
