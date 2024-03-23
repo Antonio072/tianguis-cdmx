@@ -11,7 +11,7 @@ export async function initLocation () {
         return [location.coords.latitude, location.coords.longitude];
     }
     catch (error) {
-        console.log(error)
+        console.error(error)
         return null
     }
 }
