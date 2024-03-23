@@ -91,7 +91,6 @@ function paintIconByDay(dayColor){
     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
     <g id="SVGRepo_iconCarrier"> <circle cx="16" cy="16" r="16"/> </g>
     </svg>`;
-  console.log(dayColor)
   let iconUrl = 'data:image/svg+xml;base64,' + btoa(ICON);
 
     return new L.icon({

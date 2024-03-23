@@ -103,11 +103,9 @@ townHall.addEventListener('change', async () => {
 async function geoSearch() {
     let {0: latitud, 1: longitud } = await setLocationOnMap(map)
     let points = await getNearestTianguis(latitud, longitud)
-        console.log(points)
         points.data.forEach(point => {
             let coloredIcon = paintIconByDay(getColorFromDay(point["dia"]));
 
-            console.log(coloredIcon);
             markers.add(L.marker([point["location"]["coordinates"][1], point["location"]["coordinates"][0]], {icon:coloredIcon}).addTo(map).bindPopup(description(point)));
         })
 }
