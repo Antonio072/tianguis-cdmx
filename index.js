@@ -100,13 +100,9 @@ townHall.addEventListener('change', async () => {
         )}
     )
 }) 
-
-async function init(){
-    let locationButton = document.getElementById('locationButton');
-    locationButton.addEventListener('click',async () =>{
-        let {0: latitud, 1: longitud } = await setLocationOnMap(map)
-        
-        let points = await getNearestTianguis(latitud, longitud)
+async function geoSearch() {
+    let {0: latitud, 1: longitud } = await setLocationOnMap(map)
+    let points = await getNearestTianguis(latitud, longitud)
         console.log(points)
         points.data.forEach(point => {
             let coloredIcon = paintIconByDay(getColorFromDay(point["dia"]));
@@ -114,31 +110,35 @@ async function init(){
             console.log(coloredIcon);
             markers.add(L.marker([point["location"]["coordinates"][1], point["location"]["coordinates"][0]], {icon:coloredIcon}).addTo(map).bindPopup(description(point)));
         })
-    
-    })
+}
+async function init(){
+    try{
+        let locationButton = document.getElementById('locationButton');
+        locationButton.addEventListener('click',async () =>{
+            geoSearch();
+        })
 
-    let todayCheckbox = document.getElementById(today)
-    todayCheckbox.checked = true;
-    let event = new Event('change');
-    todayCheckbox.dispatchEvent(event);
+        await geoSearch();
+    }
+    catch{
+        let todayCheckbox = document.getElementById(today)
+        todayCheckbox.checked = true;
+        let event = new Event('change');
+        todayCheckbox.dispatchEvent(event);
+    }
+
 }
 
 window.onload = async () => {
     let loader = document.getElementById('loader');
     let main = document.getElementById('main');
-    main.style.display = 'none';
-    
-    // let location = await initLocation();
-    // if (location) {
-    //     map.setView(location, 16);
-    //     loader.style.display = 'none';
-    //     main.style.display = 'block';     
-    // }
-    // else {
-        loader.style.display = 'none';
-        main.style.display = 'block';
-    // }
+
+    // Init configs and app
     await init();
+
+    // Removing loader 
+    loader.style.display = 'none';
+    main.style.display = 'block';
     // NOTE: Leaflet map doesn't renders properly so window resize is needed
     // TODO: Find a better solution
     window.dispatchEvent(new Event('resize'));
