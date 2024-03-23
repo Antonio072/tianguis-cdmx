@@ -1,6 +1,6 @@
-import { clearMarkers, description, daysInitialLetters, setLocationOnMap } from './src/functions.js';
+import { clearMarkers, description, daysInitialLetters, setLocationOnMap, paintIconByDay } from './src/functions.js';
 import { getDataFromAPI, getNearestTianguis } from './mongo.js';
-import { icon } from './src/constants.js';
+import { getColorFromDay } from './src/constants.js';
 
 let selectedDays = [];
 let selectedTownHall = 'NINGUNO';
@@ -77,7 +77,8 @@ checkboxes.forEach(checkbox => {
         clearMarkers(markers, map);
         let points = await getDataFromAPI(selectedDays, selectedTownHall)
         points.data.forEach(point => {
-            markers.add(L.marker([point["latitud"], point["longitud"]], {icon:icon}).addTo(map).bindPopup(description(point)));
+            let coloredIcon = paintIconByDay(getColorFromDay(point["dia"]));
+            markers.add(L.marker([point["latitud"], point["longitud"]], {icon:coloredIcon}).addTo(map).bindPopup(description(point)));
         })
     });
 });
@@ -87,14 +88,16 @@ townHall.addEventListener('change', async () => {
     clearMarkers(markers, map);
     selectedTownHall = townHall.value;
     let points = await getDataFromAPI(selectedDays, selectedTownHall)
-    points.data.forEach(point =>
+    points.data.forEach(point =>{
+        let coloredIcon = paintIconByDay(getColorFromDay(point["dia"]));
+
         markers
         .add(
-            L.marker([point["latitud"], point["longitud"]], {icon:icon}).
+            L.marker([point["latitud"], point["longitud"]], {icon:coloredIcon}).
                 addTo(map).
                     bindPopup(description(point)
             )
-        )
+        )}
     )
 }) 
 
@@ -104,8 +107,12 @@ async function init(){
         let {0: latitud, 1: longitud } = await setLocationOnMap(map)
         
         let points = await getNearestTianguis(latitud, longitud)
+        console.log(points)
         points.data.forEach(point => {
-            markers.add(L.marker([point["location"]["coordinates"][1], point["location"]["coordinates"][0]], {icon:icon}).addTo(map).bindPopup(description(point)));
+            let coloredIcon = paintIconByDay(getColorFromDay(point["dia"]));
+
+            console.log(coloredIcon);
+            markers.add(L.marker([point["location"]["coordinates"][1], point["location"]["coordinates"][0]], {icon:coloredIcon}).addTo(map).bindPopup(description(point)));
         })
     
     })

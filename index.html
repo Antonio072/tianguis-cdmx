@@ -37,19 +37,21 @@
         <p>Cargando información</p>
     </div>
     <main id="main" class="hidden">
-        <h1 class="text-slate-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight dark:text-white mx-3">
-            <span class="font-mono text-red-400">Tianguis</span> CDMX
-        </h1>
-        <div class="absolute z-10 mt-2 flex">
-            <div class="relative mx-1 p-2 text-gray-900 bg-white rounded-lg border border-red-400 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                <h3 class="font-bold text-center">Selecciona un día</h3>
-                <button id="dayDropdown" type="button" class="inline-flex justify-between rounded-md bg-white border-b-4 rounded-md border border-red-400 text-dark-300 text-md focus:ring-red-400 focus:border-red-400 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-400 dark:focus:border-red-400" id="menu-button" aria-expanded="true" aria-haspopup="true">
+        <nav class="nav-bar flex flex-col md:flex-row w-full justify-between">
+            <h1 class="text-slate-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight dark:text-white">
+                <span class="font-mono text-red-400">Tianguis</span> CDMX
+            </h1>
+          <div class="flex md:my-2">
+            <div class="w-1/2 min-w-1/2 max-w-50 px-2">
+                <h3 class="font-bold text-center">Día</h3>
+                <button id="dayDropdown" type="button" class="w-full inline-flex justify-between rounded-md bg-white border-b-4 border-red-400 
+                border-red-400  rounded-md border text-dark-300 text-md focus:ring-red-400 focus:border-red-400 block p-2  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-400 dark:focus:border-red-400" id="menu-button" aria-expanded="true" aria-haspopup="true">
                     <p id="daysInitials"></p>
                     <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                       <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
                     </svg>
                 </button>
-              <div id="dayDropdownContent" class="absolute p-3 hidden left-0 z-10 mt-2 w-56 origin-top-left divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                <div id="dayDropdownContent" class="absolute p-3 hidden rigth-0 z-10 mt-2 w-56 origin-top-left divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                 <ul class="">
                     <li>
                         <input type="checkbox" class="default-checkbox" id="week" name="week" value="week">
@@ -86,9 +88,9 @@
                 </ul> 
               </div>
             </div>
-            <div class="w-1/2 mx-1 p-2 bg-white h-full rounded-lg border border-red-400">
-                <h3 class="font-bold text-center">Selecciona una alcaldía</h3>
-                <select id="townHall" class="bg-white border-b-4 rounded-md border border-red-400 text-dark-300 text-md focus:ring-red-400 focus:border-red-400 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-400 dark:focus:border-red-400">
+            <div class="w-1/2 min-w-1/2 max-w-50 px-2">
+                <h3 class="font-bold text-center">Alcaldía</h3>
+                <select id="townHall" class="h-12 bg-white border-b-4 rounded-md border border-red-400 text-dark-300 text-md focus:ring-red-400 focus:border-red-400 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-400 dark:focus:border-red-400">
                     <option value="NINGUNO">NINGUNA</option>
                     <option value="TODOS">TODAS</option>
                     <option value="ALVARO OBREGON">ÁLVARO OBREGÓN</option>
@@ -145,10 +147,13 @@
             <br>
             <button class="inline-block bg-blue-500 text-white p-2 rounded-md w-auto text-center" id="locationButton">Buscar tianguis cercanos</button>
         </ul>
-         
         <div id="map"></div>
     </main>
 
+
+
+
     <script type="module" src="index.js"></script>
+
 </body>
 </html>
