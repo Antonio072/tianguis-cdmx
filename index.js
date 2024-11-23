@@ -78,7 +78,7 @@ checkboxes.forEach(checkbox => {
         let points = await getDataFromAPI(selectedDays, selectedTownHall)
         points.data.forEach(point => {
             let coloredIcon = paintIconByDay(getColorFromDay(point["dia"]));
-            markers.add(L.marker([point["latitud"], point["longitud"]], {icon:coloredIcon}).addTo(map).bindPopup(description(point)));
+            markers.add(L.marker([point["location"]["coordinates"][1], point["location"]["coordinates"][0]], {icon:coloredIcon}).addTo(map).bindPopup(description(point)));
         })
     });
 });
